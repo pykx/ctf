@@ -2,17 +2,16 @@
 Pwn 100p "scv" using radare2
 ============================
 
-`
 SCV is too hungry to mine the minerals. Can you give him some food?
-nc pwn.chal.csaw.io 3764
-`
+
+`nc pwn.chal.csaw.io 3764`
 
 Write-up
 --------
-$ file gives:
-`ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked`
+`$ file ./scv`
+ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked
 
-$ r2 ./scv -c info gives:
+`$ r2 ./scv -c info`
 canary   true
 nx       true 
 pic      false
