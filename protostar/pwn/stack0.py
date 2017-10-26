@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 
 from pwn import *
 import os
@@ -10,9 +11,6 @@ e = ELF('../bin/stack0')
 io = process('../bin/stack0')
 
 context.log_level = 'debug'
-
-pack = make_packer(64, endian='little', sign='unsigned')
-unpack = make_unpacker(64, endian='little', sign='unsigned')
 
 def radare2():
     c = "aaaa; db main; "

