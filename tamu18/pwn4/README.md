@@ -15,7 +15,7 @@ pic      false
 relro    partial
 ````
 
-Function `sym.main()` has a function call to `sym.reduced_shell()`
+Function `sym.main ()` has a function call to `sym.reduced_shell ()`
 
 ````python
 [0x080485ef]> pdf
@@ -32,7 +32,13 @@ Function `sym.main()` has a function call to `sym.reduced_shell()`
 │           0x0804863c      e8cffdffff     sym.imp.gets ()             ; char*gets(char *s)
 ````
 
-Function `sym.reduced_shell()` contains a gets call, with `local_1ch` variable, renamed to `INPUT`
+Function `sym.reduced_shell ()` contains a `sym.imp.gets ()` call, with `local_1ch` variable, renamed to `INPUT`
+
+````python
+[0x080485ef]> afvd
+var local_1ch = 0xffe4111c  0x080487a5  .... (LOAD0) (/home/vagrant/ctf/tamu18/pwn4/pwn4) main program R X 'add esp, 0x10' 'pwn4'
+[0x080485ef]> afvn local_1ch INPUT
+````
 
 Created a pattern using `ragg2 -P 300 -r > stdin` and reopen debugger.
 
