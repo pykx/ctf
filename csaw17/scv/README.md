@@ -24,7 +24,9 @@ stripped true
 ...
 ```
 
-NX security mechanism active. Therefore we cannot use the stack to execute arbitrary code.
+NX security mechanism active. 
+Therefore we cannot use the stack to execute arbitrary code.
+
 Most likely this is a ret2libc (return-to-libc) attack.
 
 Using `pxr @rsp` at bp 0x00400b0a it is notable
@@ -45,16 +47,12 @@ Using `pxr @rsp` at bp 0x00400b0a it is notable
 Look at the last line. That is a junk on the stack pointing in to libc. Great!
 
 Find where libc is dynamically loaded using `dmi`:
+````python
 [0x00400b0a]> dmi
 0x00400000 /root/ctf/csaw17/scv/scv
 0x7f65b3032000 /root/ctf/csaw17/scv/libc-2.23.so
 ...
+```
 
 Lets find out the offset to the junk found on the stack: 0x7f65b306c299 - 0x7f65b3032000 = 0x3a299.
 Perfect! Now we have a reference to map._root_ctf_csaw17_scv_libc_2.23.so.
-
-
-
-
-
-
