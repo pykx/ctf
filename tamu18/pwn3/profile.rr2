@@ -1,3 +1,4 @@
-#!/home/vagrant/ctf-tools/bin/rarun2
+#!/usr/bin/rarun2
 
+program=./pwn3
 stdin=./stdin
