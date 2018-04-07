@@ -52,7 +52,7 @@ Find where libc is dynamically loaded using `dmi`:
 0x00400000 /root/ctf/csaw17/scv/scv
 0x7f65b3032000 /root/ctf/csaw17/scv/libc-2.23.so
 ...
-```
+````
 
 Lets find out the offset to the junk found on the stack: 0x7f65b306c299 - 0x7f65b3032000 = 0x3a299.
 Perfect! Now we have a reference to map._root_ctf_csaw17_scv_libc_2.23.so.
