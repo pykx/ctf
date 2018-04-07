@@ -1,11 +1,10 @@
 # write-up pwn4 (? p)
-====
 
 remote server found at `nc pwn.ctf.tamu.edu 4324`
 
---------
+----
 
-The binary use NX security mechanism: 
+The binary use NX security mechanism
 
 ````python
 [0x08048490]> i~arch,canary,nx,pic,relro
