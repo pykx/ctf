@@ -37,6 +37,9 @@ Function `sym.reduced_shell ()` contains a `sym.imp.gets ()` call, with `local_1
 ````python
 [0x080485ef]> afvd
 var local_1ch = 0xffe4111c  0x080487a5  .... (LOAD0) (/home/vagrant/ctf/tamu18/pwn4/pwn4) main program R X 'add esp, 0x10' 'pwn4'
+````
+
+````python
 [0x080485ef]> afvn local_1ch INPUT
 ````
 
@@ -60,4 +63,11 @@ child stopped with signal 11
 ````python
 [0x41414c41]> wopO 0x41414c41
 32
+````
+
+````python
+[0x08048641]> dmi
+0x08048000 /home/vagrant/ctf/tamu18/pwn4/pwn4
+0xf754b000 /lib/i386-linux-gnu/libc-2.19.so
+0xf7706000 /lib/i386-linux-gnu/ld-2.19.so
 ````
