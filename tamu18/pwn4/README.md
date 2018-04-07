@@ -13,7 +13,7 @@ canary   false
 nx       true
 pic      false
 relro    partial
-```
+````
 
 Function sym.main() has a function call to sym.reduced_shell().
 
