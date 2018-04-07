@@ -1,4 +1,4 @@
-# write-up pwn4 (? p)
+# Write-up `pwn4` (? p)
 
 remote server found at `nc pwn.ctf.tamu.edu 4324`
 
@@ -83,7 +83,7 @@ The offset to the return address is 32 nibbles.
 ````
 
 ````bash
-(ctftools)vagrant@ctf-tools:~/ctf/tamu18/pwn4$ gdb -q /lib/i386-linux-gnu/libc.so.6
+$ gdb -q /lib/i386-linux-gnu/libc.so.6
 Reading symbols from /lib/i386-linux-gnu/libc.so.6...(no debugging symbols found)...done.
 (gdb) p system
 $1 = {<text variable, no debug info>} 0x40310 <system>
