@@ -6,12 +6,15 @@ SCV is too hungry to mine the minerals. Can you give him some food?
 
 `nc pwn.chal.csaw.io 3764`
 
-Write-up
---------
-`$ file ./scv`
-ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked
+----
 
-`$ r2 ./scv -c info`
+```bash
+$ file ./scv
+ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked
+```
+
+```bash
+$ r2 ./scv -c info
 canary   true
 nx       true 
 pic      false
@@ -19,11 +22,14 @@ relro    partial
 relocs   false
 stripped true
 ...
+```
 
 Hence, most likeyly we cannot use the stack to execute arbitrary code.
 Most likely this is a ret2libc (return-to-libc) attack.
 
 Using `pxr @rsp` at bp 0x00400b0a it is notable
+
+```python
 [0x00400b0a]> pxr @rsp
 0x7fff48aab750  0x0000000100000000   ........ @rsp
 0x7fff48aab758  0x0000000400000001   ........
@@ -34,6 +40,7 @@ Using `pxr @rsp` at bp 0x00400b0a it is notable
 0x7fff48aab780  0x0000000000602080   . `..... (LOAD1) (/root/ctf/csaw17/scv/scv) program R W 0x0 --> r14
 0x7fff48aab788  0x00007f65b306c299   ....e... (/root/ctf/csaw17/scv/libc-2.23.so) library R X 'test rax, rax' 'libc-2.23.so'
 ...
+```
 
 Look at the last line. That is a junk on the stack pointing in to libc. Great!
 
