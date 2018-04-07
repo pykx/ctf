@@ -15,7 +15,7 @@ pic      false
 relro    partial
 ````
 
-Function sym.main() has a function call to sym.reduced_shell().
+Function `sym.main()` has a function call to `sym.reduced_shell()`
 
 ````python
 [0x080485ef]> pdf
@@ -32,7 +32,7 @@ Function sym.main() has a function call to sym.reduced_shell().
 │           0x0804863c      e8cffdffff     sym.imp.gets ()             ; char*gets(char *s)
 ````
 
-Function sym.reduced_shell() contains a gets call, with local_1ch variable, renamed to INPUT.
+Function `sym.reduced_shell()` contains a gets call, with `local_1ch` variable, renamed to `INPUT`
 
 Created a pattern using `ragg2 -P 300 -r > stdin` and reopen debugger.
 
