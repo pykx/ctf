@@ -24,7 +24,7 @@ stripped true
 ...
 ```
 
-Hence, most likeyly we cannot use the stack to execute arbitrary code.
+NX security mechanism active. Therefore we cannot use the stack to execute arbitrary code.
 Most likely this is a ret2libc (return-to-libc) attack.
 
 Using `pxr @rsp` at bp 0x00400b0a it is notable
