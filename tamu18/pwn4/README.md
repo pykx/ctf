@@ -4,6 +4,16 @@ remote server found at `nc pwn.ctf.tamu.edu 4324`
 
 ----
 
+Disassemble using `r2 -e dbg.profile=profile.rr2`, with
+
+````bash
+(ctftools)vagrant@ctf-tools:~/ctf/tamu18/pwn4$ cat profile.rr2 
+#!/usr/bin/rarun2
+
+program=./pwn4
+stdin=./stdin
+````
+
 The binary use NX security mechanism
 
 ````python
@@ -65,11 +75,12 @@ child stopped with signal 11
 32
 ````
 
+The offset to the return address is 32 nibbles.
+
 ````python
 [0x08048641]> dmi
 0x08048000 /home/vagrant/ctf/tamu18/pwn4/pwn4
 0xf754b000 /lib/i386-linux-gnu/libc-2.19.so
-0xf7706000 /lib/i386-linux-gnu/ld-2.19.so
 ````
 
 ````bash
