@@ -1,16 +1,16 @@
 
 # pwn3 write-up
 
-INFO: remote server found at `nc pwn.ctf.tamu.edu 4323`.
+remote server found at `nc pwn.ctf.tamu.edu 4323`.
 
 ----
-The binary output includes a "random" value that looks interesting.
-`Your random number 0xffcfd99a!`
+The binary output includes a "random" value that looks interesting: `Your random number 0xffcfd99a!`
 
 By examining the binary using radare2 with a small radare2 profile file, see profile.rr2, it is easier to examine automate the stdin from a file called ./stdin.
 
-vagrant@ctf-tools:~/ctf/tamu18/pwn3$ r2 -e dbg.profile=profile.rr2
 
+vagrant@ctf-tools:~/ctf/tamu18/pwn3$ r2 -e dbg.profile=profile.rr2
+```python
 [0x080483d0]> aaaa
 [0x080483d0]> i~arch,canary,nx,pic,relro
 arch     x86
@@ -66,6 +66,7 @@ hit breakpoint at: 8048522
 │           0x08048574      c9             leave 
 │           0x08048575      8d61fc         esp = [ecx - 4]
 └           0x08048578      c3             return
+```
 
 Function call at 0x08048567 looks interesting to sym.echo().
 
