@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+"""
+This enables use of radare2 for pwntools
+Steps to enable
+  1. Download and save as "pwntools-gdb" somewhere in your PATH
+  2. chmod u+x pwntools-gdb
+  3. In your gdbscript, start lines with hashtag "#" that you want to get executed by radare2. For instance, to set a breakpoint automatically, you would use gdbscript="#r2.cmd('db sym.amin')"
+  4. Update line 60 if you're not a screen user..
+"""
+
+import argparse
+import re
+import subprocess
+import shlex
+import os
+
+r2_python_template = """#!/usr/bin/env python
+
+import os, r2pipe
+r2 = r2pipe.open()
+
+def load_modules():
+    modules = r2.cmdj("dmmj")
+    for module in modules:
+        if '{mod_name:s}' == os.path.basename(module['file']):
+            command = "oba {{addr:d}} {{file_name:s}}".format(file_name=module['file'], addr=module['address'])
+            r2.cmd(command)
+
+load_modules()
+r2.cmd('ib') # Reload the buffer info
+
+{user_commands:s}
+"""
+
+def pwntools_r2():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-x", nargs=1)
+    parser.add_argument("-q", action="store_true")
+    parser.add_argument("file", nargs=1)
+    args = parser.parse_args()
+
+    file_name = args.file[0]
+
+    gdb_script = args.x[0]
+
+    with open(gdb_script, "r") as f:
+        gdb_script = f.read()
+
+    ip, port = re.findall("target remote (.+):([0-9]+)", gdb_script)[0]
+
+    # Find the user commands that start with "#"
+    user_commands = '\n'.join([line[1:] for line in gdb_script.split("\n") if line.startswith("#")])
+
+    script_file = args.x[0] + ".py"
+    with open(script_file,"w") as f:
+        f.write(r2_python_template.format(mod_name=os.path.basename(file_name), user_commands=user_commands))
+
+    run_script = "#!python2 {script_file:s}".format(script_file=script_file)
+    command = ["screen","-t","pwntools-r2","r2","-d","-i",script_file, "gdb://{ip:s}:{port:s}".format(ip=ip, port=port)]
+
+    subprocess.call(command)
+
+def main():
+    pwntools_r2()
+
+if __name__ == '__main__':
+    main()

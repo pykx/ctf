@@ -1,0 +1,11 @@
+
+e cmd.stack = true
+
+e cfg.fortunes = false
+e cfg.bigendian = true
+
+e asm.cmt.right = true
+e asm.syntax = intel
+e asm.pseudo = true
+
+e scr.utf8=true
