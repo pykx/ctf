@@ -1,4 +1,4 @@
-# pwn4 write-up (? p)
+write-up pwn4 (? p)
 
 remote server found at `nc pwn.ctf.tamu.edu 4324`
 
