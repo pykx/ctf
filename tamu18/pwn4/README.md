@@ -1,8 +1,9 @@
-write-up pwn4 (? p)
+# write-up pwn4 (? p)
+====
 
 remote server found at `nc pwn.ctf.tamu.edu 4324`
 
-----
+--------
 
 The binary use NX security mechanism: 
 
