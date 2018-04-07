@@ -71,3 +71,15 @@ child stopped with signal 11
 0xf754b000 /lib/i386-linux-gnu/libc-2.19.so
 0xf7706000 /lib/i386-linux-gnu/ld-2.19.so
 ````
+
+````bash
+(ctftools)vagrant@ctf-tools:~/ctf/tamu18/pwn4$ gdb -q /lib/i386-linux-gnu/libc.so.6
+Reading symbols from /lib/i386-linux-gnu/libc.so.6...(no debugging symbols found)...done.
+(gdb) p system
+$1 = {<text variable, no debug info>} 0x40310 <system>
+(gdb) p putchar
+$2 = {<text variable, no debug info>} 0x66610 <putchar>
+(gdb) p read
+$3 = {<text variable, no debug info>} 0xdd3e0 <read>
+````
+
