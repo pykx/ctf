@@ -4,10 +4,9 @@ remote server found at `nc pwn.ctf.tamu.edu 4324`
 
 ----
 
-Disassemble using `r2 -e dbg.profile=profile.rr2`, with
+Disassemble using `r2 -e dbg.profile=profile.rr2`, with `profile.rr2`
 
 ````bash
-(ctftools)vagrant@ctf-tools:~/ctf/tamu18/pwn4$ cat profile.rr2 
 #!/usr/bin/rarun2
 
 program=./pwn4
