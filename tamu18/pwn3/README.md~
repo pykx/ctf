@@ -6,15 +6,7 @@ remote server found at `nc pwn.ctf.tamu.edu 4323`.
 ----
 The binary output includes a "random" value that looks interesting: `Your random number 0xffcfd99a!`
 
-By examining the binary using radare2 with a small radare2 profile file it is easier to automate the stdin from a file called ./stdin.
-
-```bash
-(ctftools)vagrant@ctf-tools:~/ctf/tamu18/pwn3$ cat profile.rr2 
-#!/usr/bin/rarun2
-
-program=./pwn3
-stdin=./stdin
-```
+By examining the binary using radare2 with a small radare2 profile file, see profile.rr2, it is easier to examine automate the stdin from a file called ./stdin.
 
 ```bash
 vagrant@ctf-tools:~/ctf/tamu18/pwn3$ r2 -e dbg.profile=profile.rr2
