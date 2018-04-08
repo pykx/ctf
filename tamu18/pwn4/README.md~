@@ -1,23 +1,10 @@
-# Write-up pwn4 (? p)
+# Write-up `pwn4` (? p)
 
-Remote server found at `nc pwn.ctf.tamu.edu 4324`
+remote server found at `nc pwn.ctf.tamu.edu 4324`
 
 ----
 
-The binary appears to be a reduced shell
-
-````bash
-I am a reduced online shell
-Your options are:
-1. ls
-2. cal
-3. pwd
-4. whoami
-5. exit
-Input> 
-````
-
-Disassemble using `r2 -e dbg.profile=profile.rr2`, with profile.rr2
+Disassemble using `r2 -e dbg.profile=profile.rr2`, with `profile.rr2`
 
 ````bash
 #!/usr/bin/rarun2
